@@ -87,4 +87,19 @@ public interface MedicineRepository extends JpaRepository<Medicine, Integer>{
     	        @Param("user_id") int user_id
     	);
 
+
+        @Query("""
+       SELECT m
+       FROM Medicine m
+       WHERE m.name = :name
+       AND m.category_id = :categoryId
+       AND m.user_id = :userId
+       AND m.isDeleted = false
+       """)
+Optional<Medicine> findByNameAndCategoryIdAndUserId(
+        @Param("name") String name,
+        @Param("categoryId") int categoryId,
+        @Param("userId") int userId
+);
+
 }
