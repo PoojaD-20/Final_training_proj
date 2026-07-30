@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.final_proj_training.dtos.PurchaseRequest;
 import com.example.final_proj_training.dtos.PurchaseResponse;
+import com.example.final_proj_training.exceptions.ResourceNotFoundException;
 import com.example.final_proj_training.models.Medicine;
 import com.example.final_proj_training.models.Purchase;
 import com.example.final_proj_training.repositories.CategoryRepository;
@@ -36,11 +37,11 @@ public PurchaseResponse addPurchase(PurchaseRequest request, int user_id) {
 
     // Check whether category exists
     categoryRepository.findById(request.getCategoryId())
-            .orElseThrow(() -> new RuntimeException("Category not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
 
     // Check expiry date
     if (request.getExpiryDate().isBefore(LocalDate.now())) {
-        throw new RuntimeException("Medicine expiry date cannot be in the past");
+        throw new IllegalArgumentException("Medicine expiry date cannot be in the past");
     }
 
     // Check whether medicine already exists
@@ -114,7 +115,7 @@ public List<PurchaseResponse> getAllPurchases(int user_id) {
 
         Medicine medicine = medicineRepository
                 .findByIdAndUserId(purchase.getMedicine_id(), user_id)
-                .orElseThrow(() -> new RuntimeException("Medicine not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Medicine not found"));
 
         PurchaseResponse response = mapToResponse(purchase, medicine.getName());
 
@@ -129,11 +130,11 @@ public PurchaseResponse getPurchaseById(int purchaseId, int user_id) {
 
     Purchase purchase = purchaseRepository
             .getPurchaseById(purchaseId, user_id)
-            .orElseThrow(() -> new RuntimeException("Purchase not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("Purchase not found"));
 
     Medicine medicine = medicineRepository
             .findByIdAndUserId(purchase.getMedicine_id(), user_id)
-            .orElseThrow(() -> new RuntimeException("Medicine not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("Medicine not found"));
 
     return mapToResponse(purchase, medicine.getName());
 
@@ -144,7 +145,7 @@ public List<PurchaseResponse> getPurchasesByMedicineId(int medicineId, int user_
 
     Medicine medicine = medicineRepository
             .findByIdAndUserId(medicineId, user_id)
-            .orElseThrow(() -> new RuntimeException("Medicine not found"));
+            .orElseThrow(() -> new ResourceNotFoundException("Medicine not found"));
 
     List<Purchase> purchases =
             purchaseRepository.getPurchasesByMedicineId(medicineId, user_id);

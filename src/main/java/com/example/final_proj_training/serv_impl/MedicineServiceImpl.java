@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.final_proj_training.dtos.MedicineRequest;
 import com.example.final_proj_training.dtos.MedicineResponse;
 import com.example.final_proj_training.enums.MedicineStatus;
+import com.example.final_proj_training.exceptions.ResourceNotFoundException;
 import com.example.final_proj_training.models.Medicine;
 import com.example.final_proj_training.repositories.CategoryRepository;
 import com.example.final_proj_training.repositories.MedicineRepository;
@@ -26,7 +27,7 @@ public class MedicineServiceImpl implements MedicineService{
     public MedicineResponse createMedicine(MedicineRequest request, int user_id) {
 
         categoryRepository.findById(request.getCategory_id())
-                .orElseThrow(() -> new RuntimeException("Category not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
 
         Medicine medicine = new Medicine();
 
@@ -58,7 +59,7 @@ public class MedicineServiceImpl implements MedicineService{
 
         Medicine medicine = medicineRepository
                 .findByIdAndUserId(id, user_id)
-                .orElseThrow(() -> new RuntimeException("Medicine not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Medicine not found"));
 
         return mapToResponse(medicine);
     }
@@ -68,10 +69,10 @@ public class MedicineServiceImpl implements MedicineService{
 
         Medicine medicine = medicineRepository
                 .findByIdAndUserId(id, user_id)
-                .orElseThrow(() -> new RuntimeException("Medicine not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Medicine not found"));
 
         categoryRepository.findById(request.getCategory_id())
-                .orElseThrow(() -> new RuntimeException("Category not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
 
         medicine.setName(request.getName());
         medicine.setPrice(request.getPrice());
@@ -91,7 +92,7 @@ public class MedicineServiceImpl implements MedicineService{
 
         Medicine medicine = medicineRepository
                 .findByIdAndUserId(id, user_id)
-                .orElseThrow(() -> new RuntimeException("Medicine not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Medicine not found"));
 
         medicine.setDeleted(true);
 

@@ -58,7 +58,7 @@ public class PurchaseController {
     }
 
     // Get Purchase History By Medicine Id
-    @GetMapping("/medicine/{medicineId}")
+    @GetMapping("/medicines/{medicineId}")
     public ResponseEntity<List<PurchaseResponse>> getPurchasesByMedicineId(
             @PathVariable int medicineId,
             HttpServletRequest httpRequest) {

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.final_proj_training.dtos.CategoryRequest;
 import com.example.final_proj_training.dtos.CategoryResponse;
+import com.example.final_proj_training.exceptions.DuplicateResourceException;
+import com.example.final_proj_training.exceptions.ResourceNotFoundException;
 import com.example.final_proj_training.models.Category;
 import com.example.final_proj_training.repositories.CategoryRepository;
 import com.example.final_proj_training.services.CategoryService;
@@ -26,7 +28,7 @@ public class CategoryServiceImpl implements CategoryService{
                 .findByName(request.getName())
                 .isPresent()) {
 
-            throw new RuntimeException(
+            throw new DuplicateResourceException(
                     "Category already exists"
             );
         }
@@ -64,7 +66,7 @@ public class CategoryServiceImpl implements CategoryService{
         Category category =
                 categoryRepository.findById(id)
                 .orElseThrow(
-                    () -> new RuntimeException(
+                    () -> new ResourceNotFoundException(
                         "Category not found"
                     )
                 );
@@ -85,7 +87,7 @@ public class CategoryServiceImpl implements CategoryService{
         Category category =
                 categoryRepository.findById(id)
                 .orElseThrow(
-                    () -> new RuntimeException(
+                    () -> new ResourceNotFoundException(
                         "Category not found"
                     )
                 );
@@ -111,7 +113,7 @@ public class CategoryServiceImpl implements CategoryService{
         Category category =
                 categoryRepository.findById(id)
                 .orElseThrow(
-                    () -> new RuntimeException(
+                    () -> new ResourceNotFoundException(
                         "Category not found"
                     )
                 );
