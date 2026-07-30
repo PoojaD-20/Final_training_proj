@@ -22,6 +22,13 @@ public class JwtFilters implements Filter{
 		// TODO Auto-generated method stub
 		
 		HttpServletRequest req= (HttpServletRequest) request;
+
+		// Let CORS preflight requests through untouched — browsers never
+        // send an Authorization header on an OPTIONS preflight
+        // if ("OPTIONS".equalsIgnoreCase(req.getMethod())) {
+        //     chain.doFilter(request, response);
+        //     return;
+        // }
 		
 		String authHeader= req.getHeader("Authorization");
 		
