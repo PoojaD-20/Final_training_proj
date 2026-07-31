@@ -136,7 +136,7 @@ public List<PrescriptionResponse> getAllPrescriptions(int user_id) {
         for (PrescriptionItem item : prescriptionItems) {
 
             Medicine medicine = medicineRepository
-                    .findByIdAndUserId(item.getMedicine_id(), user_id)
+                    .findMedicineForPurchaseHistory(item.getMedicine_id(), user_id)
                     .orElseThrow(() ->
                             new ResourceNotFoundException("Medicine not found"));
 
@@ -180,7 +180,7 @@ public PrescriptionResponse getPrescriptionById(int prescription_id, int user_id
     for (PrescriptionItem item : prescriptionItems) {
 
         Medicine medicine = medicineRepository
-                .findByIdAndUserId(item.getMedicine_id(), user_id)
+                .findMedicineForPurchaseHistory(item.getMedicine_id(), user_id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException("Medicine not found"));
 

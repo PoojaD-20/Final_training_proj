@@ -88,18 +88,48 @@ public interface MedicineRepository extends JpaRepository<Medicine, Integer>{
     	);
 
 
+    
+    @Query("""
+            SELECT m 
+            FROM Medicine m
+            WHERE m.user_id = :user_id
+            AND m.name = :name
+            AND m.category_id = :category_id
+            AND m.isDeleted = false
+            """)
+    Optional<Medicine> findExistingMedicine(
+            @Param("user_id") int user_id,
+            @Param("name") String name,
+            @Param("category_id") int category_id
+    );
+    
         @Query("""
        SELECT m
        FROM Medicine m
        WHERE m.name = :name
-       AND m.category_id = :categoryId
-       AND m.user_id = :userId
+       AND m.category_id = :category_id
+       AND m.user_id = :user_id
        AND m.isDeleted = false
        """)
-Optional<Medicine> findByNameAndCategoryIdAndUserId(
+ Optional<Medicine> findByNameAndCategoryIdAndUserId(
         @Param("name") String name,
-        @Param("categoryId") int categoryId,
-        @Param("userId") int userId
+        @Param("category_id") int category_id,
+        @Param("user_id") int user_id
 );
+        
+        
+        @Query("""
+        	       SELECT m
+        	       FROM Medicine m
+        	       WHERE m.id = :medicineId
+        	       AND m.user_id = :userId
+        	       """)
+        	Optional<Medicine> findMedicineForPurchaseHistory(
+        	        @Param("medicineId") int medicineId,
+        	        @Param("userId") int userId
+        	);
+        
+        
+
 
 }

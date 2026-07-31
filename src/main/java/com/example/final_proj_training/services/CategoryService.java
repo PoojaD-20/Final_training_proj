@@ -7,7 +7,7 @@ import com.example.final_proj_training.dtos.CategoryResponse;
 
 public interface CategoryService {
 
-	CategoryResponse createCategory(CategoryRequest request);
+//	CategoryResponse createCategory(CategoryRequest request);
 
 
     List<CategoryResponse> getAllCategories();
@@ -16,11 +16,11 @@ public interface CategoryService {
     CategoryResponse getCategoryById(int id);
 
 
-    CategoryResponse updateCategory(
-            int id,
-            CategoryRequest request
-    );
-
-
-    void deleteCategory(int id);
+//    CategoryResponse updateCategory(
+//            int id,
+//            CategoryRequest request
+//    );
+//
+//
+//    void deleteCategory(int id);
 }

@@ -19,32 +19,32 @@ public class CategoryServiceImpl implements CategoryService{
 	@Autowired
 	private CategoryRepository categoryRepository;
 	
-	@Override
-    public CategoryResponse createCategory(
-            CategoryRequest request) {
-
-
-        if(categoryRepository
-                .findByName(request.getName())
-                .isPresent()) {
-
-            throw new DuplicateResourceException(
-                    "Category already exists"
-            );
-        }
-
-
-        Category category = new Category();
-
-        category.setName(request.getName());
-
-
-        Category savedCategory =
-                categoryRepository.save(category);
-
-
-        return mapToResponse(savedCategory);
-    }
+//	@Override
+//    public CategoryResponse createCategory(
+//            CategoryRequest request) {
+//
+//
+//        if(categoryRepository
+//                .findByName(request.getName())
+//                .isPresent()) {
+//
+//            throw new DuplicateResourceException(
+//                    "Category already exists"
+//            );
+//        }
+//
+//
+//        Category category = new Category();
+//
+//        category.setName(request.getName());
+//
+//
+//        Category savedCategory =
+//                categoryRepository.save(category);
+//
+//
+//        return mapToResponse(savedCategory);
+//    }
 
 
 
@@ -78,50 +78,50 @@ public class CategoryServiceImpl implements CategoryService{
 
 
 
-    @Override
-    public CategoryResponse updateCategory(
-            int id,
-            CategoryRequest request) {
-
-
-        Category category =
-                categoryRepository.findById(id)
-                .orElseThrow(
-                    () -> new ResourceNotFoundException(
-                        "Category not found"
-                    )
-                );
-
-
-        category.setName(request.getName());
-
-
-        Category updated =
-                categoryRepository.save(category);
-
-
-        return mapToResponse(updated);
-    }
-
-
-
-
-    @Override
-    public void deleteCategory(int id) {
-
-
-        Category category =
-                categoryRepository.findById(id)
-                .orElseThrow(
-                    () -> new ResourceNotFoundException(
-                        "Category not found"
-                    )
-                );
-
-
-        categoryRepository.delete(category);
-
-    }
+//    @Override
+//    public CategoryResponse updateCategory(
+//            int id,
+//            CategoryRequest request) {
+//
+//
+//        Category category =
+//                categoryRepository.findById(id)
+//                .orElseThrow(
+//                    () -> new ResourceNotFoundException(
+//                        "Category not found"
+//                    )
+//                );
+//
+//
+//        category.setName(request.getName());
+//
+//
+//        Category updated =
+//                categoryRepository.save(category);
+//
+//
+//        return mapToResponse(updated);
+//    }
+//
+//
+//
+//
+//    @Override
+//    public void deleteCategory(int id) {
+//
+//
+//        Category category =
+//                categoryRepository.findById(id)
+//                .orElseThrow(
+//                    () -> new ResourceNotFoundException(
+//                        "Category not found"
+//                    )
+//                );
+//
+//
+//        categoryRepository.delete(category);
+//
+//    }
 
 
 

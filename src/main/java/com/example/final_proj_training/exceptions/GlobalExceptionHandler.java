@@ -38,16 +38,7 @@ public class GlobalExceptionHandler {
 	    return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 	}
 	
-	@ExceptionHandler(Exception.class)
-	public ResponseEntity<ErrorResponse> handleException(Exception ex) {
-
-	    ErrorResponse error = new ErrorResponse(
-	            LocalDateTime.now(),
-	            HttpStatus.INTERNAL_SERVER_ERROR.value(),"Something went wrong");
-
-	    return new ResponseEntity<>(error,
-	            HttpStatus.INTERNAL_SERVER_ERROR);
-	}
+	
 	
 	@ExceptionHandler(DuplicateResourceException.class)
 	public ResponseEntity<ErrorResponse> handleDuplicateResource(
@@ -59,5 +50,18 @@ public class GlobalExceptionHandler {
 	    );
 
 	    return new ResponseEntity<>(error, HttpStatus.CONFLICT);
+	}
+	
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<ErrorResponse> handleException(Exception ex) {
+		
+		ex.printStackTrace();
+
+	    ErrorResponse error = new ErrorResponse(
+	            LocalDateTime.now(),
+	            HttpStatus.INTERNAL_SERVER_ERROR.value(),"Something went wrong");
+
+	    return new ResponseEntity<>(error,
+	            HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }

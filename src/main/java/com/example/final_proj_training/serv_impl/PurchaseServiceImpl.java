@@ -114,7 +114,7 @@ public List<PurchaseResponse> getAllPurchases(int user_id) {
     for (Purchase purchase : purchases) {
 
         Medicine medicine = medicineRepository
-                .findByIdAndUserId(purchase.getMedicine_id(), user_id)
+                .findMedicineForPurchaseHistory(purchase.getMedicine_id(), user_id)
                 .orElseThrow(() -> new ResourceNotFoundException("Medicine not found"));
 
         PurchaseResponse response = mapToResponse(purchase, medicine.getName());
@@ -133,7 +133,7 @@ public PurchaseResponse getPurchaseById(int purchaseId, int user_id) {
             .orElseThrow(() -> new ResourceNotFoundException("Purchase not found"));
 
     Medicine medicine = medicineRepository
-            .findByIdAndUserId(purchase.getMedicine_id(), user_id)
+            .findMedicineForPurchaseHistory(purchase.getMedicine_id(), user_id)
             .orElseThrow(() -> new ResourceNotFoundException("Medicine not found"));
 
     return mapToResponse(purchase, medicine.getName());
@@ -144,7 +144,7 @@ public PurchaseResponse getPurchaseById(int purchaseId, int user_id) {
 public List<PurchaseResponse> getPurchasesByMedicineId(int medicineId, int user_id) {
 
     Medicine medicine = medicineRepository
-            .findByIdAndUserId(medicineId, user_id)
+            .findMedicineForPurchaseHistory(medicineId, user_id)
             .orElseThrow(() -> new ResourceNotFoundException("Medicine not found"));
 
     List<Purchase> purchases =

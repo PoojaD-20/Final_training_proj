@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.final_proj_training.dtos.MedicineRequest;
 import com.example.final_proj_training.dtos.MedicineResponse;
 import com.example.final_proj_training.enums.MedicineStatus;
+import com.example.final_proj_training.exceptions.DuplicateResourceException;
 import com.example.final_proj_training.exceptions.ResourceNotFoundException;
 import com.example.final_proj_training.models.Medicine;
 import com.example.final_proj_training.repositories.CategoryRepository;
@@ -28,6 +29,14 @@ public class MedicineServiceImpl implements MedicineService{
 
         categoryRepository.findById(request.getCategory_id())
                 .orElseThrow(() -> new ResourceNotFoundException("Category not found"));
+        
+        medicineRepository.findExistingMedicine(
+                user_id,
+                request.getName(),
+                request.getCategory_id()
+        ).ifPresent(medicine -> {
+            throw new DuplicateResourceException("Medicine already exists");
+        });
 
         Medicine medicine = new Medicine();
 

@@ -24,13 +24,13 @@ public class CategoryController {
 	@Autowired
 	private CategoryService categoryService;
 	
-    @PostMapping
-    public ResponseEntity<CategoryResponse> createCategory(@RequestBody CategoryRequest request){
-
-        return ResponseEntity.ok(
-                categoryService.createCategory(request)
-        );
-    }
+//    @PostMapping
+//    public ResponseEntity<CategoryResponse> createCategory(@RequestBody CategoryRequest request){
+//
+//        return ResponseEntity.ok(
+//                categoryService.createCategory(request)
+//        );
+//    }
 
 
 
@@ -60,29 +60,29 @@ public class CategoryController {
 
 
 
-    @PutMapping("/{id}")
-    public ResponseEntity<CategoryResponse> updateCategory(
-            @PathVariable int id,
-            @RequestBody CategoryRequest request){
-
-
-        return ResponseEntity.ok(
-                categoryService.updateCategory(id,request)
-        );
-    }
-
-
-
-
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCategory(
-            @PathVariable int id){
-
-
-        categoryService.deleteCategory(id);
-
-
-        return ResponseEntity.noContent().build();
-    }
+//    @PutMapping("/{id}")
+//    public ResponseEntity<CategoryResponse> updateCategory(
+//            @PathVariable int id,
+//            @RequestBody CategoryRequest request){
+//
+//
+//        return ResponseEntity.ok(
+//                categoryService.updateCategory(id,request)
+//        );
+//    }
+//
+//
+//
+//
+//
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Void> deleteCategory(
+//            @PathVariable int id){
+//
+//
+//        categoryService.deleteCategory(id);
+//
+//
+//        return ResponseEntity.noContent().build();
+//    }
 }
